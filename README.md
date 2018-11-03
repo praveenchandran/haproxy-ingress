@@ -345,6 +345,9 @@ The following parameters are supported:
 ||[`load-server-state`](#load-server-state) (experimental)|[true\|false]|`false`|
 ||[`max-connections`](#max-connections)|number|`2000`|
 |`[1]`|[`modsecurity-endpoints`](#modsecurity-endpoints)|comma-separated list of IP:port (spoa)|no waf config|
+|`[1]`|[`modsecurity-timeout-hello`](#modsecurity)|time with suffix|`100ms`|
+|`[1]`|[`modsecurity-timeout-idle`](#modsecurity)|time with suffix|`30s`|
+|`[1]`|[`modsecurity-timeout-processing`](#modsecurity)|time with suffix|`1s`|
 |`[1]`|[`nbproc-ssl`](#nbproc)|number of process|`0`|
 |`[1]`|[`nbthread`](#nbthread)|number of threads|`1`|
 |`[0]`|[`no-tls-redirect-locations`](#no-tls-redirect-locations)|comma-separated list of url|`/.well-known/acme-challenge`|
@@ -600,6 +603,7 @@ wasn't configured to deny requests based on ModSecurity response.
 
 See also:
 
+* [modsecurity](#modsecurity) config options
 * [`ingress.kubernetes.io/waf`](#waf) annotation
 * [example](/examples/modsecurity) page
 
@@ -608,6 +612,20 @@ Reference:
 * http://cbonte.github.io/haproxy-dconv/1.8/configuration.html#9.3
 * https://www.haproxy.org/download/1.8/doc/SPOE.txt
 * https://github.com/jcmoraisjr/modsecurity-spoa
+
+### modsecurity
+
+Configure modsecurity agent. These options only have effect if ModSecurity is configured.
+See also [`modsecurity-endpoints`](#modsecurity-endpoints) configmap option and
+[`ingress.kubernetes.io/waf`](#waf) annotation.
+
+Global configmap options:
+
+* `modsecurity-timeout-hello`: Defines the maximum time to wait for the AGENT-HELLO frame from the agent. Default value is `100ms`.
+* `modsecurity-timeout-idle`: Defines the maximum time to wait before close an idle connection. Default value is `30s`.
+* `modsecurity-timeout-processing`: Defines the maximum time to wait for the whole ModSecurity processing. Default value is `1s`.
+
+* https://www.haproxy.org/download/1.8/doc/SPOE.txt
 
 ### nbproc
 
