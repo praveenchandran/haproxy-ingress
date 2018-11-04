@@ -38,14 +38,17 @@ HAProxy Ingress has two types of dynamic configurations: per ingress resource us
 [annotations](#annotations), or globally using a [ConfigMap](#configmap) resource.
 The controller has also static [command-line](#command-line) arguments.
 
-It is also possible to change the default template mounting a new template file at
-`/etc/haproxy/template/haproxy.tmpl`. This is the only file in the directory, so create a
-configmap with `haproxy.tmpl` key mounting into `/etc/haproxy/template` will work.
+It's also possible to change the default templates mounting a new template file using
+a configmap:
 
-The template supports [Sprig](http://masterminds.github.io/sprig/) template library. 
+|Mounting directory|Configmap keys (filenames)|Source (choose a proper tag)|
+|---|---|---|
+|`/etc/haproxy/template`|`haproxy.tmpl`|[haproxy.tmpl](/rootfs/etc/haproxy/template/haproxy.tmpl)|
+|`/etc/haproxy/modsecurity`|`spoe-modsecurity.tmpl`|[spoe-modsecurity.tmpl](/rootfs/etc/haproxy/modsecurity/spoe-modsecurity.tmpl)|
+
+All templates support [Sprig](http://masterminds.github.io/sprig/) template library. 
 This library provides a group of commonly used template functions to work with dictionaries, 
 lists, math etc.
-
 
 ## Annotations
 
